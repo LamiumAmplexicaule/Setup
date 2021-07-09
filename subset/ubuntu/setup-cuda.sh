@@ -29,8 +29,10 @@ if [[ $OS_VERSION != 20.04 ]] && [[ $OS_VERSION != 18.04 ]]; then
 fi
 
 # Remove old
-sudo apt-get -qq -y autoremove cuda >/dev/null
-sudo rm -rf /usr/local/cuda*
+if (apt-cache pkgnames | grep -e "cuda" >/dev/null) ; then
+    sudo apt-get -qq -y autoremove cuda >/dev/null
+    sudo rm -rf /usr/local/cuda*
+fi
 
 # Install cuda
 case $OS_VERSION in 
