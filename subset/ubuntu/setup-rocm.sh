@@ -33,7 +33,9 @@ elif [[ $KERNEL_VERSION != 5.4.* ]]; then
 fi
 
 # Remove old
-sudo apt-get -qq -y autoremove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
+if (apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) ; then
+    sudo apt-get -qq -y autoremove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
+fi
 
 # Install rocm
 echo "Install rocm."
