@@ -42,8 +42,10 @@ GPU=$(lspci | grep VGA | cut -d ":" -f3)
 OS_VERSION=$(lsb_release -rs)
 KERNEL_VERSION=$(uname -r)
 if [[ $GPU == *NVIDIA* ]]; then
-    sudo apt-get -qq -y autoremove cuda >/dev/null
-    sudo rm -rf /usr/local/cuda*
+    if (apt-cache pkgnames | grep -e "cuda" >/dev/null) ; then
+        sudo apt-get -qq -y autoremove cuda >/dev/null
+        sudo rm -rf /usr/local/cuda*
+    fi
 
     echo "Install cuda."
     case $OS_VERSION in 
@@ -66,7 +68,9 @@ if [[ $GPU == *NVIDIA* ]]; then
 elif [[ $GPU == *Advanced* ]]; then
     if [[ $OS_VERSION == 20.04 ]] || [[$OS_VERSION == 18.04 ]]; then
         if [[ $KERNEL_VERSION == 5.4.* ]]; then
-            sudo apt-get -qq -y autoremove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
+            if (apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) ; then
+                sudo apt-get -qq -y autoremove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
+            fi
 
             echo "Install rocm."
             sudo apt-get -qq update >/dev/null
