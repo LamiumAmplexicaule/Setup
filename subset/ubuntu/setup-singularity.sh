@@ -13,7 +13,7 @@ sudo rm -rf /usr/local/libexec/singularity /usr/local/var/singularity /usr/local
 sudo rm -rf /usr/local/go
 
 # Definitions
-SINGULARITY_VERSION=3.8.0
+SINGULARITY_VERSION=$(curl https://github.com/sylabs/singularity/releases/latest | grep -o -E "([0-9])+\.([0-9])+\.([0-9])+")
 GO_VERSION=1.16.5
 echo "Singularity version: ${SINGULARITY_VERSION}"
 echo "Go version: ${GO_VERSION}"
