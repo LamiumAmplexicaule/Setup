@@ -14,7 +14,7 @@ sudo rm -rf /usr/local/go
 
 # Definitions
 SINGULARITY_VERSION=$(curl -s https://github.com/sylabs/singularity/releases/latest | grep -o -E "([0-9])+\.([0-9])+\.([0-9])+")
-GO_VERSION=1.16.5
+GO_VERSION=1.17.2
 echo "Singularity version: ${SINGULARITY_VERSION}"
 echo "Go version: ${GO_VERSION}"
 
