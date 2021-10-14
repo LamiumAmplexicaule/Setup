@@ -30,7 +30,7 @@ fi
 
 # Remove old
 if (apt-cache pkgnames | grep -e "cuda" >/dev/null) ; then
-    sudo apt-get -qq -y autoremove cuda >/dev/null
+    sudo apt-get -qq -y remove cuda >/dev/null
     sudo rm -rf /usr/local/cuda*
 fi
 
