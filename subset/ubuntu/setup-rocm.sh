@@ -34,7 +34,7 @@ fi
 
 # Remove old
 if (apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) ; then
-    sudo apt-get -qq -y autoremove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
+    sudo apt-get -qq -y remove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
 fi
 
 # Install rocm
