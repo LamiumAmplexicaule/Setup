@@ -34,7 +34,7 @@ fi
 
 # Remove old
 result=0
-output=$(apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) || result=$?
+output=$(dpkg -s | grep -e "rocm-dkms" >/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo apt-get -qq -y remove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
 fi
