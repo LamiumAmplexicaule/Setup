@@ -29,7 +29,9 @@ if [[ $OS_VERSION != 20.04 ]] && [[ $OS_VERSION != 18.04 ]]; then
 fi
 
 # Remove old
-if (apt-cache pkgnames | grep -e "cuda" >/dev/null) ; then
+result=0
+output=$(apt-cache pkgnames | grep -e "cuda" >/dev/null) || result=$?
+if [[ $result == 0 ]]; then
     sudo apt-get -qq -y remove cuda >/dev/null
     sudo rm -rf /usr/local/cuda*
 fi
