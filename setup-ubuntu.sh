@@ -42,7 +42,9 @@ GPU=$(lspci | grep VGA | cut -d ":" -f3)
 OS_VERSION=$(lsb_release -rs)
 KERNEL_VERSION=$(uname -r)
 if [[ $GPU == *NVIDIA* ]]; then
-    if (apt-cache pkgnames | grep -e "cuda" >/dev/null) ; then
+    result=0
+    output=$(apt-cache pkgnames | grep -e "cuda" >/dev/null) || result=$?
+    if [[ $result == 0 ]]; then
         sudo apt-get -qq -y remove cuda >/dev/null
         sudo rm -rf /usr/local/cuda*
     fi
@@ -68,7 +70,9 @@ if [[ $GPU == *NVIDIA* ]]; then
 elif [[ $GPU == *Advanced* ]]; then
     if [[ $OS_VERSION == 20.04 ]] || [[$OS_VERSION == 18.04 ]]; then
         if [[ $KERNEL_VERSION == 5.4.* ]]; then
-            if (apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) ; then
+            result=0
+            output=$(apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) || result=$?
+            if [[ $result == 0 ]]; then
                 sudo apt-get -qq -y remove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
             fi
 
