@@ -33,7 +33,9 @@ elif [[ $KERNEL_VERSION != 5.4.* ]]; then
 fi
 
 # Remove old
-if (apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) ; then
+result=0
+output=$(apt-cache pkgnames | grep -e "rocm-dkms" >/dev/null) || result=$?
+if [[ $result == 0 ]]; then
     sudo apt-get -qq -y remove rocm-opencl rocm-dkms rocm-dev rocm-utils >/dev/null
 fi
 
