@@ -110,6 +110,7 @@ sudo apt-get -qq -y install adoptopenjdk-11-openj9 >/dev/null
 
 echo "Install firefox developer edition."
 lang=$(echo LANG | cut -d "." -f 1)
+user=$(whoami)
 if [[ $lang != ja_JP ]]; then
     lang="en-US"
 else
@@ -117,29 +118,28 @@ else
 fi
 wget -qO firefox-dev.tar.bz2 "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=$lang"
 mkdir -p firefox-dev && tar -xjf firefox-dev.tar.bz2 -C firefox-dev --strip-components 1
-sudo mv firefox-dev /opt
-sudo ln -s /opt/firefox-dev/firefox /usr/bin/firefox-dev >/dev/null
+mkdir -p /home/$user/.local/opt
+mv firefox-dev /home/$user/.local/opt
 (echo -e "[Desktop Entry]
 Name=Firefox Developer Edition
 GenericName=Web Browser
-Exec=/usr/bin/firefox-dev %u
+Exec=/home/$user/.local/opt/firefox-dev/firefox %u
 Icon=/opt/firefox-dev/browser/chrome/icons/default/default128.png
 Terminal=false
+X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
 StartupNotify=true
 Categories=Network;WebBrowser;Favorite;
 Keywords=web;browser;internet;
 Actions=new-window;new-private-window;
-StartupWMClass=firefox-developer-edition
-
+StartupWMClass=Firefox Developer Edition
 [Desktop Action new-window]
 Name=Open a New Window
-Exec=/usr/bin/firefox-dev %u
-
+Exec=/home/$user/.local/opt/firefox-dev/firefox %u
 [Desktop Action new-private-window]
 Name=Open a New Private Window
-Exec=/usr/bin/firefox-dev --private-window %u" | sudo tee -a /usr/share/applications/firefox-dev.desktop) >/dev/null
+Exec=/home/$user/.local/opt/firefox-dev/firefox --private-window %u" | sudo tee -a /usr/share/applications/firefox-dev.desktop) >/dev/null
 rm -f firefox-dev.tar.bz2
 
 echo "Install google chrome."
