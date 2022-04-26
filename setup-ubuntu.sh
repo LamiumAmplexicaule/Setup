@@ -84,7 +84,7 @@ elif [[ $GPU == *Advanced* ]]; then
             (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
             sudo usermod -aG video $LOGNAME >/dev/null
             sudo usermod -aG render $LOGNAME >/dev/null
-            wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/21.40.2/ubuntu/bionic/amdgpu-install_21.40.2.40502-1_all.deb >/dev/null
+            wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.10.1/ubuntu/focal/amdgpu-install_22.10.1.50101-1_all.deb >/dev/null
             sudo apt-get install ./amdgpu-install_all.deb >/dev/null
             sudo apt-get -qq update >/dev/null
             sudo amdgpu-install --usecase=rocm
@@ -98,15 +98,11 @@ fi
 echo "Install rust."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/null
 
-echo "Install adoptopenjdk."
-CODENAME=$(lsb_release -cs)
-wget -qO adoptopenjdk-public.gpg https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
-gpg -q --no-default-keyring --keyring ./adoptopenjdk-keyring.gpg --import adoptopenjdk-public.gpg
-gpg -q --no-default-keyring --keyring ./adoptopenjdk-keyring.gpg --export --output adoptopenjdk-archive-keyring.gpg
-rm -f adoptopenjdk-keyring.gpg && sudo mv adoptopenjdk-archive-keyring.gpg /usr/share/keyrings 
-(echo "deb [signed-by=/usr/share/keyrings/adoptopenjdk-archive-keyring.gpg] https://adoptopenjdk.jfrog.io/adoptopenjdk/deb $CODENAME main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list) >/dev/null
+echo "Install eclipse adoptium jdk."
+(wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
+(echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install adoptopenjdk-11-openj9 >/dev/null
+sudo apt-get -qq install temurin-17-jdk >/dev/null
 
 echo "Install firefox developer edition."
 lang=$(echo LANG | cut -d "." -f 1)

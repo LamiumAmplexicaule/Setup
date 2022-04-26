@@ -47,7 +47,7 @@ sudo apt-get -qq update >/dev/null
 (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
 sudo usermod -aG video $LOGNAME >/dev/null
 sudo usermod -aG render $LOGNAME >/dev/null
-wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/21.40.2/ubuntu/bionic/amdgpu-install_21.40.2.40502-1_all.deb >/dev/null
+wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.10.1/ubuntu/focal/amdgpu-install_22.10.1.50101-1_all.deb >/dev/null
 sudo apt-get install ./amdgpu-install_all.deb >/dev/null
 sudo apt-get -qq update >/dev/null
 sudo amdgpu-install --usecase=rocm
