@@ -10,7 +10,7 @@ sudo apt-get -qq -y install apt-transport-https ca-certificates curl gnupg lsb-r
 result=0
 output=$(dpkg -s | grep -e "docker" >/dev/null) || result=$?
 if [[ $result == 0 ]]; then
-    ssudo apt-get -qq -y purge docker-ce docker-ce-cli containerd.io >/dev/null
+    sudo apt-get -qq -y purge docker-ce docker-ce-cli containerd.io >/dev/null
 fi
 
 # Add pgp key
