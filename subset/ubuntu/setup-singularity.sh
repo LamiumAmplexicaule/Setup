@@ -32,7 +32,7 @@ export PATH="/usr/local/go/bin:${PATH}"
 
 # Install singularity
 echo "Install singularity."
-wget -qO singularity-ce.tar.gz https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VERSION}/singularity-ce-${SINGULARITY_VERSION}.tar.gz
+wget -qO singularity-ce.tar.gz https://github.com/sylabs/singularity/releases/download/v"${SINGULARITY_VERSION}"/singularity-ce-"${SINGULARITY_VERSION}".tar.gz
 mkdir -p singularity-ce && tar -xzf singularity-ce.tar.gz -C singularity-ce --strip-components 1
 cd singularity-ce
 ./mconfig >/dev/null
