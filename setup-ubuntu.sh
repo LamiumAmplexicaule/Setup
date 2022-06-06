@@ -75,7 +75,7 @@ if [[ $GPU == *NVIDIA* ]]; then
     sudo apt-get -qq -y install cuda >/dev/null
 elif [[ $GPU == *Advanced* ]]; then
     if [[ $OS_VERSION == 20.04 ]] || [[$OS_VERSION == 18.04 ]]; then
-        if [[ $KERNEL_VERSION == 5.4.* ]] || [[ $KERNEL_VERSION == 5.8.* ]];; then
+        if [[ $KERNEL_VERSION == 5.4.* ]] || [[ $KERNEL_VERSION == 5.8.* ]]; then
             result=0
             output=$(dpkg -s | grep -e "amdgpu-dkms" >/dev/null) || result=$?
             if [[ $result == 0 ]]; then
