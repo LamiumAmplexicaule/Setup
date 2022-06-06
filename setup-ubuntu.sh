@@ -9,8 +9,8 @@ sudo apt-get -qq -y install git curl wget apt-transport-https gnupg lsb-release 
 echo "Install fzf, bat, fd"
 sudo apt-get -qq -y install fzf bat fd-find >/dev/null
 mkdir -p ~/.local/bin >/dev/null
-ln -sf $(which batcat) ~/.local/bin/bat
-ln -sf $(which fdfind) ~/.local/bin/fd
+ln -sf "$(which batcat)" ~/.local/bin/bat
+ln -sf "$(which fdfind)" ~/.local/bin/fd
  
 echo "Install fish."
 sudo add-apt-repository -y ppa:fish-shell/release-3 >/dev/null
@@ -88,8 +88,8 @@ elif [[ $GPU == *Advanced* ]]; then
             (echo 'ADD_EXTRA_GROUPS=1' | sudo tee -a /etc/adduser.conf) >/dev/null
             (echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
             (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
-            sudo usermod -aG video $LOGNAME >/dev/null
-            sudo usermod -aG render $LOGNAME >/dev/null
+            sudo usermod -aG video "$LOGNAME" >/dev/null
+            sudo usermod -aG render "$LOGNAME" >/dev/null
             wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.10.1/ubuntu/focal/amdgpu-install_22.10.1.50101-1_all.deb >/dev/null
             sudo apt-get install ./amdgpu-install_all.deb >/dev/null
             sudo apt-get -qq update >/dev/null
@@ -120,8 +120,8 @@ else
 fi
 wget -qO firefox-dev.tar.bz2 "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=$lang"
 mkdir -p firefox-dev && tar -xjf firefox-dev.tar.bz2 -C firefox-dev --strip-components 1
-mkdir -p /home/$user/.local/opt
-mv firefox-dev /home/$user/.local/opt
+mkdir -p /home/"$user"/.local/opt
+mv firefox-dev /home/"$user"/.local/opt
 (echo -e "[Desktop Entry]
 Name=Firefox Developer Edition
 GenericName=Web Browser
@@ -173,4 +173,4 @@ sudo apt-get -qq -y install 1password >/dev/null
 echo "Finishup."
 sudo apt-get -qq clean >/dev/null
 echo "Change default shell to $(which fish)"
-chsh -s $(which fish)
+chsh -s "$(which fish)"
