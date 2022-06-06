@@ -43,6 +43,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/n
 
 echo "Finishup."
 brew cleanup >/dev/null
-(echo $(which fish) | sudo tee -a /etc/shells) >/dev/null
+(echo "$(which fish)" | sudo tee -a /etc/shells) >/dev/null
 echo "Change default shell to $(which fish)"
-chsh -s $(which fish)
+chsh -s "$(which fish)"
