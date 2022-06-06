@@ -39,66 +39,10 @@ fi
 
 echo "Install tools for gpu."
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
-OS_VERSION=$(lsb_release -rs)
-KERNEL_VERSION=$(uname -r)
 if [[ $GPU == *NVIDIA* ]]; then
-    result=0
-    output=$(dpkg -s | grep -e "cuda" >/dev/null) || result=$?
-    if [[ $result == 0 ]]; then
-        sudo apt-get -qq -y remove cuda >/dev/null
-        sudo rm -rf /usr/local/cuda*
-    fi
-
-    echo "Install cuda."
-    case $OS_VERSION in 
-        22.04)
-            wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin >/dev/null
-            sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600 >/dev/null
-            sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub >/dev/null
-            sudo add-apt-repository -y "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /" >/dev/null
-            ;;
-        20.04)
-            wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-            sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-            sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub >/dev/null
-            sudo add-apt-repository -y "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" >/dev/null
-            ;;
-        18.04)
-            wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
-            sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-            sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub >/dev/null
-            sudo add-apt-repository -y "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /" >/dev/null
-            ;;
-    esac
-
-    sudo apt-get -qq update >/dev/null
-    sudo apt-get -qq -y install cuda >/dev/null
+    source ./subset/ubuntu/setup-cuda.sh
 elif [[ $GPU == *Advanced* ]]; then
-    if [[ $OS_VERSION == 20.04 ]] || [[ $OS_VERSION == 18.04 ]]; then
-        if [[ $KERNEL_VERSION == 5.4.* ]] || [[ $KERNEL_VERSION == 5.8.* ]]; then
-            result=0
-            output=$(dpkg -s | grep -e "amdgpu-dkms" >/dev/null) || result=$?
-            if [[ $result == 0 ]]; then
-                sudo amdgpu-uninstall >/dev/null
-            fi
-
-            # Install rocm
-            echo "Install rocm."
-            sudo apt-get -qq update >/dev/null
-            (echo 'ADD_EXTRA_GROUPS=1' | sudo tee -a /etc/adduser.conf) >/dev/null
-            (echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
-            (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
-            sudo usermod -aG video "$LOGNAME" >/dev/null
-            sudo usermod -aG render "$LOGNAME" >/dev/null
-            wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.10.1/ubuntu/focal/amdgpu-install_22.10.1.50101-1_all.deb >/dev/null
-            sudo apt-get install ./amdgpu-install_all.deb >/dev/null
-            sudo apt-get -qq update >/dev/null
-            sudo amdgpu-install --usecase=rocm
-        else
-            echo "ROCm is only supported in 5.4 or 5.8."
-            echo "ROCm installation will be skipped."
-        fi
-    fi
+    source ./subset/ubuntu/setup-rocm.sh
 fi
 
 echo "Install rust."
