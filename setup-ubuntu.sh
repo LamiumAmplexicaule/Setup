@@ -55,21 +55,19 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq install temurin-17-jdk >/dev/null
 
 echo "Install firefox developer edition."
-lang=$(echo LANG | cut -d "." -f 1)
-user=$(whoami)
-if [[ $lang != ja_JP ]]; then
+lang=$(echo $LANG | cut -d "." -f 1)
+if [[ $lang != "ja_JP" ]]; then
     lang="en-US"
 else
     lang="ja"
 fi
 wget -qO firefox-dev.tar.bz2 "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=$lang"
 mkdir -p firefox-dev && tar -xjf firefox-dev.tar.bz2 -C firefox-dev --strip-components 1
-mkdir -p /home/"$user"/.local/opt
-mv firefox-dev /home/"$user"/.local/opt
+sudo mv firefox-dev /opt
 (echo -e "[Desktop Entry]
 Name=Firefox Developer Edition
 GenericName=Web Browser
-Exec=/home/$user/.local/opt/firefox-dev/firefox %u
+Exec=/opt/firefox-dev/firefox %u
 Icon=/opt/firefox-dev/browser/chrome/icons/default/default128.png
 Terminal=false
 X-MultipleArgs=false
@@ -82,10 +80,10 @@ Actions=new-window;new-private-window;
 StartupWMClass=Firefox Developer Edition
 [Desktop Action new-window]
 Name=Open a New Window
-Exec=/home/$user/.local/opt/firefox-dev/firefox %u
+Exec=/opt/firefox-dev/firefox %u
 [Desktop Action new-private-window]
 Name=Open a New Private Window
-Exec=/home/$user/.local/opt/firefox-dev/firefox --private-window %u" | sudo tee -a /usr/share/applications/firefox-dev.desktop) >/dev/null
+Exec=/opt/firefox-dev/firefox --private-window %u" | sudo tee -a /usr/share/applications/firefox-dev.desktop) >/dev/null
 rm -f firefox-dev.tar.bz2
 
 echo "Install google chrome."
