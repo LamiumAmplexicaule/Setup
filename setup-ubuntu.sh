@@ -38,6 +38,7 @@ if [[ $(which hyper) ]] && [[ ! -f ~/.hyper.js ]]; then
 fi
 
 echo "Install tools for gpu."
+sudo apt-get -qq -y install nvtop
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 if [[ $GPU == *NVIDIA* ]]; then
     source ./subset/ubuntu/setup-cuda.sh
