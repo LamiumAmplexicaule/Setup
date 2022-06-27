@@ -56,7 +56,7 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq install temurin-17-jdk >/dev/null
 
 echo "Install firefox developer edition."
-lang=$(echo $LANG | cut -d "." -f 1)
+lang=$(echo "$LANG" | cut -d "." -f 1)
 if [[ $lang != "ja_JP" ]]; then
     lang="en-US"
 else
