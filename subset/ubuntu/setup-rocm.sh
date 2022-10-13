@@ -23,12 +23,8 @@ sudo apt-get -qq -y install wget gnupg2 >/dev/null
 
 # Check version
 OS_VERSION=$(lsb_release -rs)
-KERNEL_VERSION=$(uname -r)
-if [[ $OS_VERSION != 20.04 ]] && [[ $OS_VERSION != 18.04 ]]; then
+if [[ $OS_VERSION != 22.04 ]] && [[ $OS_VERSION != 20.04 ]]; then
     echo "Your os version is not supported."
-    exit 1
-elif [[ $KERNEL_VERSION != 5.4.* ]]; then
-    echo "ROCm is only supported in 5.4 or 5.6-oem."
     exit 1
 fi
 
@@ -43,17 +39,20 @@ fi
 echo "Install rocm."
 sudo apt-get -qq update >/dev/null
 (echo 'ADD_EXTRA_GROUPS=1' | sudo tee -a /etc/adduser.conf) >/dev/null
-(echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
-(echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
-sudo usermod -aG video "$LOGNAME" >/dev/null
-sudo usermod -aG render "$LOGNAME" >/dev/null
+if [[ $OS_VERSION == 20.04 ]]; then
+    (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
+    sudo usermod -aG render "$LOGNAME" >/dev/null
+else
+    (echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
+    sudo usermod -aG video "$LOGNAME" >/dev/null
+fi
 
 case $OS_VERSION in 
-    20.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.20.3/ubuntu/focal/amdgpu-install_22.20.50203-1_all.deb >/dev/null
+    22.04)
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.3/ubuntu/jammy/amdgpu-install_5.3.50300-1_all.deb >/dev/null
         ;;
-    18.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/22.20.3/ubuntu/bionic/amdgpu-install_22.20.50203-1_all.deb >/dev/null
+    20.04)
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.3/ubuntu/focal/amdgpu-install_5.3.50300-1_all.deb  >/dev/null
         ;;
 esac
 
