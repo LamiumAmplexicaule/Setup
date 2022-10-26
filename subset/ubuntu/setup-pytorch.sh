@@ -33,9 +33,10 @@ if [[ $GPU == *NVIDIA* ]]; then
             pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
             exit;
         fi
-        # 10.2 <= x < 11.3
+        # 10.2 <= v < 11.3
         pip3 install torch torchvision torchaudio
     else
+        # v < 10.2
         pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
     fi
 elif [[ $GPU == *Advanced* ]]; then
