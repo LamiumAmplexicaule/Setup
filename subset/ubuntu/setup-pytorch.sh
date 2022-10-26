@@ -22,9 +22,9 @@ if [[ $GPU == *NVIDIA* ]]; then
     CUDA_10_2=10.2
     CUDA_11_3=11.3
     CUDA_11_6=11.6
-    if [[ $(printf "$CUDA_10_2\n$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_10_2 ]]; then
-        if [[ $(printf "$CUDA_11_3\n$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_11_3 ]]; then
-            if [[ $(printf "$CUDA_11_6\n$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_11_6 ]]; then
+    if [[ $(printf "%s\n%s" "$CUDA_10_2" "$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_10_2 ]]; then
+        if [[ $(printf "%s\n%s" "$CUDA_11_3" "$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_11_3 ]]; then
+            if [[ $(printf "%s\n%s" "$CUDA_11_6" "$CUDA_VERSION" | sort -V | head -n 1) == $CUDA_11_6 ]]; then
                 # 11.6 <= v
                 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
                 exit;
