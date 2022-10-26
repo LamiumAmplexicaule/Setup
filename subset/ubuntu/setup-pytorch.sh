@@ -16,6 +16,7 @@ sudo apt-get -qq -y install python3-pip >/dev/null
 
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 
+echo "Install PyTorch."
 if [[ $GPU == *NVIDIA* ]]; then
     CUDA_VERSION=$(nvcc --version | grep release | cut -d ' ' -f 5 | tr -d ',')
     CUDA_10_2=10.2
