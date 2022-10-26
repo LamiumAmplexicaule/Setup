@@ -35,11 +35,12 @@ if [[ $GPU == *NVIDIA* ]]; then
         fi
         # 10.2 <= x < 11.3
         pip3 install torch torchvision torchaudio
+    else
+        pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
     fi
 elif [[ $GPU == *Advanced* ]]; then
     pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.1.1
 else
     pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
-    echo "cpu"
 fi
 
