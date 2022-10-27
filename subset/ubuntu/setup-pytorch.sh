@@ -13,6 +13,7 @@ fi
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install python3-pip >/dev/null
+pip3 install -U pip
 
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 
