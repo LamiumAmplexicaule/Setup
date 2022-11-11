@@ -37,7 +37,7 @@ if [[ $GPU == *NVIDIA* ]]; then
                 exit;
             fi
             # 11.3 <= v < 11.6
-            pip3 torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+            pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
             exit;
         fi
         # 10.2 <= v < 11.3
