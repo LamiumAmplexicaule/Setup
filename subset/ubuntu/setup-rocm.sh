@@ -30,7 +30,7 @@ fi
 
 # Remove old
 result=0
-output=$(dpkg -s | grep -e "amdgpu-dkms" >/dev/null) || result=$?
+output=$(dpkg -s "amdgpu-dkms" &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo amdgpu-uninstall >/dev/null
 fi
