@@ -30,7 +30,7 @@ fi
 
 # Remove old
 result=0
-output=$(dpkg -s | grep -e "cuda" >/dev/null) || result=$?
+output=$(dpkg -s "cuda" &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo apt-get -qq -y remove cuda >/dev/null
     sudo rm -rf /usr/local/cuda*
