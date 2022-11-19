@@ -8,7 +8,7 @@ sudo apt-get -qq -y install apt-transport-https ca-certificates curl gnupg lsb-r
 
 # Remove old
 result=0
-output=$(dpkg -s | grep -e "docker" >/dev/null) || result=$?
+output=$(dpkg -s "docker" &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo apt-get -qq -y purge docker-ce docker-ce-cli containerd.io >/dev/null
 fi
