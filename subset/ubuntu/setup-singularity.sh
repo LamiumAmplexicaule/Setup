@@ -13,15 +13,17 @@ sudo rm -rf /usr/local/libexec/singularity /usr/local/var/singularity /usr/local
 sudo rm -rf /usr/local/go
 
 # Definitions
-SINGULARITY_VERSION=$(curl -s https://github.com/sylabs/singularity/releases/latest | grep -o -E "([0-9])+\.([0-9])+\.([0-9])+")
-GO_VERSION=1.19.2
+sudo apt-get -qq update >/dev/null
+sudo apt-get -qq -y install jq >/dev/null
+SINGULARITY_VERSION=$(curl -s https://api.github.com/repos/sylabs/singularity/releases/latest | jq .tag_name | grep -oE "([0-9])+\.([0-9])+\.([0-9])+")
+GO_VERSION=1.19.3
 echo "Singularity version: ${SINGULARITY_VERSION}"
 echo "Go version: ${GO_VERSION}"
 
 # Install dependencies
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install build-essential uuid-dev libgpgme-dev squashfs-tools libseccomp-dev wget pkg-config git cryptsetup-bin >/dev/null
+sudo apt-get -qq -y install build-essential libseccomp-dev libglib2.0-dev pkg-config squashfs-tools cryptsetup runc >/dev/null
 
 # Install go
 echo "Install go."
