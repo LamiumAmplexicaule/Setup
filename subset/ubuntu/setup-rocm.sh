@@ -19,7 +19,7 @@ fi
 # Install dependencies
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install wget gnupg2 >/dev/null
+sudo apt-get -qq -y install wget gnupg2 gawk curl >/dev/null
 
 # Check version
 OS_VERSION=$(lsb_release -rs)
@@ -49,10 +49,10 @@ fi
 
 case $OS_VERSION in 
     22.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.3/ubuntu/jammy/amdgpu-install_5.3.50300-1_all.deb >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4/ubuntu/jammy/amdgpu-install_5.4.50400-1_all.deb >/dev/null
         ;;
     20.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.3/ubuntu/focal/amdgpu-install_5.3.50300-1_all.deb  >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4/ubuntu/focal/amdgpu-install_5.4.50400-1_all.deb  >/dev/null
         ;;
 esac
 
