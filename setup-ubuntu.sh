@@ -11,6 +11,13 @@ sudo apt-get -qq -y install fzf bat fd-find >/dev/null
 mkdir -p ~/.local/bin >/dev/null
 ln -sf "$(which batcat)" ~/.local/bin/bat
 ln -sf "$(which fdfind)" ~/.local/bin/fd
+
+echo "Install clipboard utilities"
+if [[ $XDG_SESSION_TYPE == wayland ]]; then
+    sudo apt-get -qq install wl-clipboard
+elif [[ $XDG_SESSION_TYPE == x11 ]]; then
+    sudo apt-get -qq install xclip
+fi
  
 echo "Install fish."
 sudo add-apt-repository -y ppa:fish-shell/release-3 >/dev/null
