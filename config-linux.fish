@@ -8,6 +8,15 @@ alias cp='cp -i'
 alias la='ls -a'
 alias update='sudo apt update && sudo apt upgrade'
 
+if type xclip >/dev/null 2>&1
+  alias pbcopy='xclip -selection c'
+  alias pbpaste='xclip -selection c -o'
+end
+if type wl-copy >/dev/null 2>&1
+  alias pbcopy='wl-copy'
+  alias pbpaste='wl-paste'
+end
+
 if test -d $HOME/.local/bin
         set -xg PATH $HOME/.local/bin $PATH
 end
