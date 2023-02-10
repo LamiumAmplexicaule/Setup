@@ -49,10 +49,10 @@ fi
 
 case $OS_VERSION in 
     22.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.2/ubuntu/jammy/amdgpu-install_5.4.50402-1_all.deb >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/jammy/amdgpu-install_5.4.50403-1_all.deb >/dev/null
         ;;
     20.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.2/ubuntu/focal/amdgpu-install_5.4.50402-1_all.deb  >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/focal/amdgpu-install_5.4.50403-1_all.deb >/dev/null
         ;;
 esac
 
