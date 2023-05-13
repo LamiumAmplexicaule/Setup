@@ -28,6 +28,7 @@ end
 
 if test -d /opt/rocm/
         set -xg PATH /opt/rocm/bin:/opt/rocm/rocprofiler/bin:/opt/rocm/opencl/bin $PATH
+        set -xg LD_LIBRARY_PATH /opt/rocm/lib:/opt/rocm/lib64 $LD_LIBRARY_PATH
 end
 
 if test -d /usr/local/go
