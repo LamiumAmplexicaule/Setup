@@ -39,20 +39,17 @@ fi
 echo "Install rocm."
 sudo apt-get -qq update >/dev/null
 (echo 'ADD_EXTRA_GROUPS=1' | sudo tee -a /etc/adduser.conf) >/dev/null
-if [[ $OS_VERSION == 20.04 ]]; then
-    (echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
-    sudo usermod -aG render "$LOGNAME" >/dev/null
-else
-    (echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
-    sudo usermod -aG video "$LOGNAME" >/dev/null
-fi
+(echo 'EXTRA_GROUPS=render' | sudo tee -a /etc/adduser.conf) >/dev/null
+sudo usermod -aG render "$LOGNAME" >/dev/null
+(echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
+sudo usermod -aG video "$LOGNAME" >/dev/null
 
 case $OS_VERSION in 
     22.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/jammy/amdgpu-install_5.4.50403-1_all.deb >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/jammy/amdgpu-install_5.5.50500-1_all.deb >/dev/null
         ;;
     20.04)
-        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/focal/amdgpu-install_5.4.50403-1_all.deb >/dev/null
+        wget -qO amdgpu-install_all.deb https://repo.radeon.com/amdgpu-install/5.4.3/ubuntu/focal/amdgpu-install_5.5.50500-1_all.deb >/dev/null
         ;;
 esac
 
