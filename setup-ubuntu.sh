@@ -14,9 +14,9 @@ ln -sf "$(which fdfind)" ~/.local/bin/fd
 
 echo "Install clipboard utilities"
 if [[ $XDG_SESSION_TYPE == wayland ]]; then
-    sudo apt-get -qq install wl-clipboard
+    sudo apt-get -qq install wl-clipboard >/dev/null
 elif [[ $XDG_SESSION_TYPE == x11 ]]; then
-    sudo apt-get -qq install xclip
+    sudo apt-get -qq install xclip >/dev/null
 fi
  
 echo "Install fish."
@@ -57,7 +57,7 @@ echo "Install rust."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/null
 
 echo "Install eclipse adoptium jdk."
-(wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
+(wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
 (echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq install temurin-17-jdk >/dev/null
