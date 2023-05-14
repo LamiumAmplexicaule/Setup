@@ -85,7 +85,7 @@ StartupNotify=true
 Categories=Network;WebBrowser;Favorite;
 Keywords=web;browser;internet;
 Actions=new-window;new-private-window;
-StartupWMClass=Firefox Developer Edition
+StartupWMClass=firefox-aurora
 [Desktop Action new-window]
 Name=Open a New Window
 Exec=/opt/firefox-dev/firefox %u
