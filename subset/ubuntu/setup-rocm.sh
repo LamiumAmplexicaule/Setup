@@ -46,8 +46,8 @@ curl -fsSL https://repo.radeon.com/rocm/rocm.gpg.key | sudo gpg --dearmor -o /et
 CODE_NAME=$(lsb_release -cs)
 (echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/rocm-keyring.gpg] https://repo.radeon.com/amdgpu/latest/ubuntu $CODE_NAME main" | sudo tee /etc/apt/sources.list.d/amdgpu.list) >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq install amdgpu-dkms
+sudo apt-get -qq -y install amdgpu-dkms
 (echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/rocm-keyring.gpg] https://repo.radeon.com/rocm/apt/debian/ $CODE_NAME main" | sudo tee /etc/apt/sources.list.d/rocm.list) >/dev/null
 (echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600) >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq install rocm-dkms >/dev/null
+sudo apt-get -qq -y install rocm-dkms >/dev/null
