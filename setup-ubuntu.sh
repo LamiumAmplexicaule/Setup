@@ -145,5 +145,7 @@ fi
 
 echo "Finishup."
 sudo apt-get -qq clean >/dev/null
-echo "Change default shell to $(which fish)"
-chsh -s "$(which fish)"
+if ! echo $SHELL | grep -q 'fish'; then
+    echo "Change default shell to $(which fish)"
+    chsh -s "$(which fish)"
+fi
