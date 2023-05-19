@@ -16,7 +16,7 @@ sudo rm -rf /usr/local/go
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install jq >/dev/null
 SINGULARITY_VERSION=$(curl -s https://api.github.com/repos/sylabs/singularity/releases/latest | jq .tag_name | grep -oE "([0-9])+\.([0-9])+\.([0-9])+")
-GO_VERSION=1.19.3
+GO_VERSION=1.20.4
 echo "Singularity version: ${SINGULARITY_VERSION}"
 echo "Go version: ${GO_VERSION}"
 
