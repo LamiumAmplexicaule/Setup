@@ -51,4 +51,4 @@ esac
 
 sudo dpkg -i cuda-keyring_all.deb >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install cuda >/dev/null
+sudo apt-get -qq -y install cuda
