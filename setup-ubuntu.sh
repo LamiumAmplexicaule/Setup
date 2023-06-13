@@ -110,14 +110,14 @@ if [[ ! -f ~/.local/share/applications/jetbrains-toolbox.desktop ]]; then
     OS_VERSION=$(lsb_release -rs)
     JAMMY=22.04
     if [[ $(printf "$JAMMY\n$OS_VERSION" | sort -V | head -n 1) == $JAMMY ]]; then
-        sudo add-apt-repository universe
-        sudo apt install libfuse2
+        sudo add-apt-repository universe >/dev/null
+        sudo apt-get -qq install libfuse2 >/dev/null
     else
-        sudo apt install fuse libfuse2
-        sudo modprobe fuse
-        sudo groupadd fuse
+        sudo apt-get -qq install fuse libfuse2 >/dev/null
+        sudo modprobe fuse >/dev/null
+        sudo groupadd fuse >/dev/null
         user="$(whoami)"
-        sudo usermod -a -G fuse $user
+        sudo usermod -a -G fuse $user >/dev/null
     fi
     wget -qO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
     mkdir -p jetbrains-toolbox && tar -xzf jetbrains-toolbox.tar.gz -C jetbrains-toolbox --strip-components 1
