@@ -64,17 +64,6 @@ elif [[ $GPU == *Advanced* ]]; then
     source ./subset/ubuntu/setup-rocm.sh
 fi
 
-echo "Install rust."
-if [[ ! $(command -v rustup) ]]; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/null
-fi
-
-echo "Install eclipse adoptium jdk."
-(wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
-(echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
-sudo apt-get -qq update >/dev/null
-sudo apt-get -qq install temurin-17-jdk >/dev/null
-
 echo "Install firefox developer edition."
 if [[ ! -d /opt/firefox-dev ]]; then
     lang=$(echo "$LANG" | cut -d "." -f 1)
@@ -118,6 +107,18 @@ fi
 
 echo "Install jetbrains toolbox."
 if [[ ! -f ~/.local/share/applications/jetbrains-toolbox.desktop ]]; then
+    OS_VERSION=$(lsb_release -rs)
+    JAMMY=22.04
+    if [[ $(printf "$JAMMY\n$OS_VERSION" | sort -V | head -n 1) == $JAMMY ]]; then
+        sudo add-apt-repository universe
+        sudo apt install libfuse2
+    else
+        sudo apt install fuse libfuse2
+        sudo modprobe fuse
+        sudo groupadd fuse
+        user="$(whoami)"
+        sudo usermod -a -G fuse $user
+    fi
     wget -qO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
     mkdir -p jetbrains-toolbox && tar -xzf jetbrains-toolbox.tar.gz -C jetbrains-toolbox --strip-components 1
     ./jetbrains-toolbox/jetbrains-toolbox
@@ -141,6 +142,17 @@ if [[ ! $(command -v 1password) ]]; then
     (curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg -q --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg) >/dev/null
     sudo apt-get -qq update >/dev/null
     sudo apt-get -qq -y install 1password >/dev/null
+fi
+
+echo "Install eclipse adoptium jdk."
+(wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
+(echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
+sudo apt-get -qq update >/dev/null
+sudo apt-get -qq install temurin-17-jdk >/dev/null
+
+echo "Install rust."
+if [[ ! $(command -v rustup) ]]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &>/dev/null
 fi
 
 echo "Finishup."
