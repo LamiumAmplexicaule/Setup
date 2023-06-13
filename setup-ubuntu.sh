@@ -6,13 +6,13 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y upgrade >/dev/null
 sudo apt-get -qq -y install git curl wget apt-transport-https gnupg lsb-release >/dev/null
 
-echo "Install fzf, bat, fd"
+echo "Install fzf, bat, fd."
 sudo apt-get -qq -y install fzf bat fd-find >/dev/null
 mkdir -p ~/.local/bin >/dev/null
 ln -sf "$(which batcat)" ~/.local/bin/bat
 ln -sf "$(which fdfind)" ~/.local/bin/fd
 
-echo "Install clipboard utilities"
+echo "Install clipboard utilities."
 if [[ $XDG_SESSION_TYPE == wayland ]]; then
     sudo apt-get -qq install wl-clipboard >/dev/null
 elif [[ $XDG_SESSION_TYPE == x11 ]]; then
@@ -33,7 +33,7 @@ if [[ $(command -v fish) ]]; then
     fish -c "fisher install PatrickF1/fzf.fish" >/dev/null
 fi
 
-echo "Install hyper terminal"
+echo "Install hyper terminal."
 if [[ ! $(command -v hyper) ]]; then
     wget -qO hyper.deb https://releases.hyper.is/download/deb
     sudo apt-get -qq -y install ./hyper.deb >/dev/null
@@ -56,7 +56,7 @@ if [[ $(command -v hyper) ]]; then
 fi
 
 echo "Install tools for gpu."
-sudo apt-get -qq -y install nvtop
+sudo apt-get -qq -y install nvtop >/dev/null
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 if [[ $GPU == *NVIDIA* ]]; then
     source ./subset/ubuntu/setup-cuda.sh
