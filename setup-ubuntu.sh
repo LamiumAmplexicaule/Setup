@@ -110,7 +110,7 @@ if [[ ! -f ~/.local/share/applications/jetbrains-toolbox.desktop ]]; then
     OS_VERSION=$(lsb_release -rs)
     JAMMY=22.04
     if [[ $(printf "$JAMMY\n$OS_VERSION" | sort -V | head -n 1) == $JAMMY ]]; then
-        sudo add-apt-repository universe >/dev/null
+        sudo add-apt-repository -y universe >/dev/null
         sudo apt-get -qq install libfuse2 >/dev/null
     else
         sudo apt-get -qq install fuse libfuse2 >/dev/null
