@@ -39,13 +39,13 @@ fi
 # Install cuda
 case $OS_VERSION in 
     22.04)
-        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb >/dev/null
+        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb >/dev/null
         ;;
     20.04)
-        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb >/dev/null
+        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.1-1_all.deb >/dev/null
         ;;
     18.04)
-        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb >/dev/null
+        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.1-1_all.deb >/dev/null
         ;;
 esac
 
