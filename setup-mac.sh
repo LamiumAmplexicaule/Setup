@@ -58,9 +58,9 @@ fi
 echo "Finishup."
 brew cleanup >/dev/null
 if ! grep -q fish /etc/shells; then
-    (echo "$(which fish)" | sudo tee -a /etc/shells) >/dev/null
+    (which fish | sudo tee -a /etc/shells) >/dev/null
 fi
-if ! echo $SHELL | grep -q 'fish'; then
+if ! echo "$SHELL" | grep -q 'fish'; then
     echo "Change default shell to $(which fish)"
     chsh -s "$(which fish)"
 fi
