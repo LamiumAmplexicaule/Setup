@@ -18,28 +18,28 @@ if type wl-copy >/dev/null 2>&1
 end
 
 if test -d $HOME/.local/bin
-        set -xg PATH $HOME/.local/bin $PATH
+        fish_add_path $HOME/.local/bin
 end
 
 if test -d /usr/local/cuda
-        set -xg PATH /usr/local/cuda/bin $PATH
+        fish_add_path /usr/local/cuda/bin
         set -xg LD_LIBRARY_PATH /usr/local/cuda/lib64 $LD_LIBRARY_PATH
 end
 
 if test -d /opt/rocm/
-        set -xg PATH /opt/rocm/bin:/opt/rocm/rocprofiler/bin:/opt/rocm/opencl/bin $PATH
+        fish_add_path /opt/rocm/bin /opt/rocm/rocprofiler/bin /opt/rocm/opencl/bin
         set -xg LD_LIBRARY_PATH /opt/rocm/lib:/opt/rocm/lib64 $LD_LIBRARY_PATH
 end
 
 if test -d /usr/local/go
-        set -xg PATH /usr/local/go/bin $PATH
+        fish_add_path /usr/local/go/bin
 end
 
 if test -d $HOME/go
         set -xg GOPATH $HOME/go
-        set -xg PATH $GOPATH/bin $PATH
+        fish_add_path $GOPATH/bin
 end
 
 if test -d $HOME/.cargo
-        set -xg PATH $HOME/.cargo/bin $PATH
+        fish_add_path $HOME/.cargo/bin
 end
