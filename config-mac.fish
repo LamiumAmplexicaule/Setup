@@ -11,14 +11,22 @@ alias nproc='sysctl -n hw.logicalcpu'
 
 alias update='brew update; brew upgrade; brew upgrade --cask'
 
+if test -d /usr/local/bin
+        fish_add_path /usr/local/bin
+end
+
 if test -d /usr/local/sbin
-        set -xg PATH /usr/local/sbin $PATH
+        fish_add_path /usr/local/sbin
 end
 
 if test -d /opt/homebrew/bin
-        set -xg PATH /opt/homebrew/bin $PATH
+        fish_add_path/opt/homebrew/bin
+end
+
+if test -d /opt/homebrew/sbin
+        fish_add_path/opt/homebrew/sbin
 end
 
 if test -d $HOME/.cargo
-        set -xg PATH $HOME/.cargo/bin $PATH
+        fish_add_path $HOME/.cargo/bin
 end
