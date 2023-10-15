@@ -20,11 +20,11 @@ if test -d /usr/local/sbin
 end
 
 if test -d /opt/homebrew/bin
-        fish_add_path/opt/homebrew/bin
+        fish_add_path /opt/homebrew/bin
 end
 
 if test -d /opt/homebrew/sbin
-        fish_add_path/opt/homebrew/sbin
+        fish_add_path /opt/homebrew/sbin
 end
 
 if test -d $HOME/.cargo
