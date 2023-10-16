@@ -17,6 +17,9 @@ fi
 echo "Update homebrew."
 brew update >/dev/null
 
+echo "Disable homebrew analytics."
+brew analytics off >/dev/null
+
 echo "Install homebrew packages."
 brew tap homebrew/bundle >/dev/null
 brew bundle >/dev/null
