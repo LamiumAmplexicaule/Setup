@@ -61,6 +61,7 @@ fi
 echo "Finishup."
 brew cleanup >/dev/null
 if ! grep -q fish /etc/shells; then
+    echo "Add $(which fish) to /etc/shells"
     (which fish | sudo tee -a /etc/shells) >/dev/null
 fi
 if ! echo "$SHELL" | grep -q 'fish'; then
