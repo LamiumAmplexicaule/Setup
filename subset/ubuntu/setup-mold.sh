@@ -24,12 +24,12 @@ fi
 case $OS_VERSION in 
     20.04)
         sudo apt-get -qq update >/dev/null
-        sudo apt-get -qq -y install cmake libssl-dev zlib1g-dev gcc g++ g++-10 >/dev/null
+        sudo apt-get -qq -y install cmake gcc g++ g++-10 >/dev/null
         sudo apt-get -qq -y install file >/dev/null
         ;;
     *)
         sudo apt-get -qq update >/dev/null
-        sudo apt-get -qq -y install cmake libssl-dev zlib1g-dev gcc g++ >/dev/null
+        sudo apt-get -qq -y install cmake gcc g++ >/dev/null
         sudo apt-get -qq -y install file >/dev/null
         ;;
 esac
