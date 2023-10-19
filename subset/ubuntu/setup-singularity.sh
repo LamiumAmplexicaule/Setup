@@ -16,14 +16,14 @@ sudo rm -rf /usr/local/go
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install jq >/dev/null
 SINGULARITY_VERSION=$(curl -s https://api.github.com/repos/sylabs/singularity/releases/latest | jq .tag_name | grep -oE "([0-9])+\.([0-9])+\.([0-9])+")
-GO_VERSION=1.20.4
+GO_VERSION=1.21.3
 echo "Singularity version: ${SINGULARITY_VERSION}"
 echo "Go version: ${GO_VERSION}"
 
 # Install dependencies
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install build-essential libseccomp-dev libglib2.0-dev pkg-config squashfs-tools cryptsetup runc >/dev/null
+sudo apt-get -qq -y install autoconf automake cryptsetup git libfuse-dev libglib2.0-dev libseccomp-dev libtool pkg-config runc squashfs-tools squashfs-tools-ng uidmap wget zlib1g-dev >/dev/null
 
 # Install go
 echo "Install go."
