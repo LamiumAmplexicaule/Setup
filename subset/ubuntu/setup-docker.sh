@@ -16,6 +16,7 @@ fi
 # Add pgp key
 sudo mkdir -m 0755 -p /etc/apt/keyrings >/dev/null
 (curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg) >/dev/null
+sudo chmod a+r /etc/apt/keyrings/docker.gpg >/dev/null
 
 # Add repository
 (echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list) > /dev/null
