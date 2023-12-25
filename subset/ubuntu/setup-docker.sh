@@ -4,7 +4,7 @@ set -eu
 # Install dependencies
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install ca-certificates curl gnupg lsb-release >/dev/null
+sudo apt-get -qq -y install ca-certificates curl gnupg >/dev/null
 
 # Remove old
 result=0
@@ -33,11 +33,10 @@ sudo systemctl enable containerd.service >/dev/null
 # NVIDIA Container Toolkit
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 if [[ $GPU == *NVIDIA* ]]; then
-    distribution=$(. /etc/os-release;echo "$ID$VERSION_ID") \
-          && curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-          && curl -s -L "https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list" | \
-                sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-                sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+    && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
     sudo apt-get -qq update >/dev/null
     sudo apt-get install -y nvidia-container-toolkit >/dev/null
     sudo nvidia-ctk runtime configure --runtime=docker >/dev/null
