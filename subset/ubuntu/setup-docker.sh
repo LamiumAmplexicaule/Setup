@@ -7,11 +7,7 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install ca-certificates curl gnupg >/dev/null
 
 # Remove old
-result=0
-output=$(dpkg -s "docker" &>/dev/null) || result=$?
-if [[ $result == 0 ]]; then
-    sudo apt-get -qq -y purge docker-ce docker-ce-cli containerd.io >/dev/null
-fi
+for pkg in docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 # Add pgp key
 sudo mkdir -m 0755 -p /etc/apt/keyrings >/dev/null
