@@ -4,18 +4,18 @@ set -eu
 # Install dependencies
 echo "Install dependencies."
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install ca-certificates curl gnupg >/dev/null
+sudo apt-get -qq -y install ca-certificates curl gnupg2 >/dev/null
 
 # Remove old
 for pkg in docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 # Add pgp key
 sudo mkdir -m 0755 -p /etc/apt/keyrings >/dev/null
-(curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg) >/dev/null
-sudo chmod a+r /etc/apt/keyrings/docker.gpg >/dev/null
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc >/dev/null
+sudo chmod a+r /etc/apt/keyrings/docker.asc >/dev/null
 
 # Add repository
-(echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list) > /dev/null
+(echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list) > /dev/null
 
 # Install docker
 echo "Install docker."
