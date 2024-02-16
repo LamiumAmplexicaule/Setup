@@ -148,7 +148,7 @@ echo "Install eclipse adoptium jdk."
 (wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
 (echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq install temurin-17-jdk >/dev/null
+sudo apt-get -qq install temurin-21-jdk >/dev/null
 
 echo "Install rust."
 if [[ ! $(command -v rustup) ]]; then
