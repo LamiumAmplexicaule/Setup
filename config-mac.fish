@@ -9,7 +9,7 @@ alias cp='cp -i'
 alias la='ls -a'
 alias nproc='sysctl -n hw.logicalcpu'
 
-alias update='brew update; brew upgrade; brew upgrade --cask'
+alias update='brew update; brew upgrade; brew upgrade --cask; brew autoremove'
 
 if test -d /usr/local/bin
     fish_add_path /usr/local/bin
