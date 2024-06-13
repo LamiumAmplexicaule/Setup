@@ -144,9 +144,9 @@ if [[ ! $(command -v 1password) ]]; then
     sudo apt-get -qq -y install 1password >/dev/null
 fi
 
-echo "Install eclipse adoptium jdk."
-(wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /usr/share/keyrings/adoptium.asc) >/dev/null
-(echo "deb [signed-by=/usr/share/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
+echo "Install eclipse temurin jdk."
+(wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg) >/dev/null
+(echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list) >/dev/null
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq install temurin-21-jdk >/dev/null
 
