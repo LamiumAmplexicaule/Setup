@@ -26,6 +26,6 @@ $packages = @(
 )
 
 foreach ($package in $packages) {
-  Write-Host "Remove: " $package
+  Write-Host "Remove: $package"
   Get-AppxPackage $package | Remove-AppxPackage
 }
