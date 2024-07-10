@@ -29,6 +29,7 @@ $packages = @(
   "MicrosoftCorporationII.MicrosoftFamily",
   "MicrosoftCorporationII.QuickAssist",
   "MicrosoftTeams",
+  "MicrosoftWindows.Client.WebExperience",
   "SpotifyAB.SpotifyMusic",
   "microsoft.windowscommunicationsapps"
 )
