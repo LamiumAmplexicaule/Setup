@@ -1,16 +1,22 @@
 Write-Host "Remove unnecessary packages"
 
 $packages = @(
+  "7EE7776C.LinkedInforWindows",
   "Clipchamp.Clipchamp",
   "Disney.37853FC22B2CE",
   "Microsoft.549981C3F5F10",
+  "Microsoft.BingNews",
   "Microsoft.BingWeather",
-  "Microsoft.GamingApp ",
+  "Microsoft.GamingApp",
+  "Microsoft.GetHelp",
   "Microsoft.Getstarted",
   "Microsoft.MicrosoftOfficeHub",
   "Microsoft.MicrosoftSolitaireCollection",
   "Microsoft.MicrosoftStickyNotes",
+  "Microsoft.OutlookForWindows",
+  "Microsoft.People",
   "Microsoft.Todos",
+  "Microsoft.Windows.DevHome",
   "Microsoft.Windows.Photos",
   "Microsoft.WindowsAlarms",
   "Microsoft.WindowsCamera",
@@ -20,6 +26,8 @@ $packages = @(
   "Microsoft.YourPhone",
   "Microsoft.ZuneMusic",
   "Microsoft.ZuneVideo",
+  "MicrosoftCorporationII.MicrosoftFamily",
+  "MicrosoftCorporationII.QuickAssist",
   "MicrosoftTeams",
   "SpotifyAB.SpotifyMusic",
   "microsoft.windowscommunicationsapps"
