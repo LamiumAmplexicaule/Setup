@@ -1,6 +1,6 @@
 Write-Host "Remove unnecessary packages"
 
-$packages = @(
+$unnecessaryPackages = @(
   "7EE7776C.LinkedInforWindows",
   "Clipchamp.Clipchamp",
   "Disney.37853FC22B2CE",
@@ -38,7 +38,20 @@ $packages = @(
   "microsoft.windowscommunicationsapps"
 )
 
-foreach ($package in $packages) {
-  Write-Host "Remove: $package"
-  Get-AppxPackage $package | Remove-AppxPackage
+foreach ($unnecessaryPackage in $unnecessaryPackages) {
+  Write-Host "Remove: $unnecessaryPackage"
+  Get-AppxPackage $unnecessaryPackage | Remove-AppxPackage
+}
+
+$wingetPackages = @(
+  "AgileBits.1Password",
+  "ElectronicArts.EADesktop",
+  "Mozilla.Firefox.DeveloperEdition",
+  "RiotGames.Valorant.AP",
+  "Valve.Steam"
+)
+
+foreach ($wingetPackage in $wingetPackages) {
+  Write-Host "Install: $wingetPackage"
+  winget install -e --id  $wingetPackage
 }
