@@ -51,7 +51,10 @@ $wingetPackages = @(
   "Valve.Steam"
 )
 
-foreach ($wingetPackage in $wingetPackages) {
-  Write-Host "Install: $wingetPackage"
-  winget install -e --id  $wingetPackage
+if (Get-Command -Name winget -ErrorAction SilentlyContinue)
+{
+  foreach ($wingetPackage in $wingetPackages) {
+    Write-Host "Install: $wingetPackage"
+    winget install -e --id  $wingetPackage
+  }
 }
