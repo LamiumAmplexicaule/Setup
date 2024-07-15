@@ -45,6 +45,7 @@ foreach ($unnecessaryPackage in $unnecessaryPackages) {
 
 $wingetPackages = @(
   "AgileBits.1Password",
+  "Discord.Discord",
   "ElectronicArts.EADesktop",
   "Mozilla.Firefox.DeveloperEdition",
   "RiotGames.Valorant.AP",
