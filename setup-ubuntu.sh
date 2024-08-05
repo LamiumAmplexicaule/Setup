@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 echo "Install common tools."
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y upgrade >/dev/null
@@ -59,9 +61,9 @@ echo "Install tools for gpu."
 sudo apt-get -qq -y install nvtop >/dev/null
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
 if [[ $GPU == *NVIDIA* ]]; then
-    source ./subset/ubuntu/setup-cuda.sh
+    . "$SCRIPT_DIR/subset/ubuntu/setup-cuda.sh"
 elif [[ $GPU == *Advanced* ]]; then
-    source ./subset/ubuntu/setup-rocm.sh
+    . "$SCRIPT_DIR//subset/ubuntu/setup-rocm.sh"
 fi
 
 echo "Install firefox developer edition."
