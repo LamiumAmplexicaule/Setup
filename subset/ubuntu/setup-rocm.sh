@@ -23,7 +23,7 @@ sudo apt-get -qq -y install wget gnupg2 >/dev/null
 
 # Check version
 OS_VERSION=$(lsb_release -rs)
-if [[ $OS_VERSION != 22.04 ]] && [[ $OS_VERSION != 20.04 ]]; then
+if [[ $OS_VERSION != 24.04 ]] && [[ $OS_VERSION != 22.04 ]] && [[ $OS_VERSION != 20.04 ]]; then
     echo "Your os version is not supported."
     exit 1
 fi
