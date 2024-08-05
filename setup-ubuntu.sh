@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
 
 echo "Install common tools."
 sudo apt-get -qq update >/dev/null

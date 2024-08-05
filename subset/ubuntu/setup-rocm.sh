@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-SCRIPT_DIR=$(dirname "$(realpath "$0")")
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
 . "$SCRIPT_DIR/../../utils.sh"
 
 SUPPORTED_VERSIONS=("20.04" "22.04" "24.04")
