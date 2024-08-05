@@ -1,6 +1,11 @@
 #!/bin/bash
 set -eu
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+. "$SCRIPT_DIR/../../utils.sh"
+
+SUPPORTED_VERSIONS=("18.04" "20.04" "22.04" "24.04")
+
 # Check platform
 OS=$(uname -s)
 ARCH=$(uname -m)
@@ -23,7 +28,7 @@ sudo apt-get -qq -y install wget lsb-release >/dev/null
 
 # Check version
 OS_VERSION=$(lsb_release -rs)
-if [[ $OS_VERSION != 22.04 ]] && [[ $OS_VERSION != 20.04 ]] && [[ $OS_VERSION != 18.04 ]]; then
+if ! is_supported_version "$OS_VERSION" "${SUPPORTED_VERSIONS[@]}"; then
     echo "Your os version is not supported."
     exit 1
 fi
@@ -37,7 +42,10 @@ if [[ $result == 0 ]]; then
 fi
 
 # Install cuda
-case $OS_VERSION in 
+case $OS_VERSION in
+    24.04)
+        wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb >/dev/null
+        ;;
     22.04)
         wget -q -O cuda-keyring_all.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb >/dev/null
         ;;

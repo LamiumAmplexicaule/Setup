@@ -1,6 +1,11 @@
 #!/bin/bash
 set -eu
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+. "$SCRIPT_DIR/../../utils.sh"
+
+SUPPORTED_VERSIONS=("20.04" "22.04" "24.04")
+
 # Check platform
 OS=$(uname -s)
 ARCH=$(uname -m)
@@ -16,7 +21,7 @@ sudo apt-get -qq -y install wget lsb-release >/dev/null
 
 # Check version
 OS_VERSION=$(lsb_release -rs)
-if [[ $OS_VERSION != 22.04 ]] && [[ $OS_VERSION != 20.04 ]] && [[ $OS_VERSION != 18.04 ]]; then
+if ! is_supported_version "$OS_VERSION" "${SUPPORTED_VERSIONS[@]}"; then
     echo "Your os version is not supported."
     exit 1
 fi
@@ -25,12 +30,10 @@ case $OS_VERSION in
     20.04)
         sudo apt-get -qq update >/dev/null
         sudo apt-get -qq -y install cmake gcc g++ g++-10 >/dev/null
-        sudo apt-get -qq -y install file >/dev/null
         ;;
     *)
         sudo apt-get -qq update >/dev/null
         sudo apt-get -qq -y install cmake gcc g++ >/dev/null
-        sudo apt-get -qq -y install file >/dev/null
         ;;
 esac
 
