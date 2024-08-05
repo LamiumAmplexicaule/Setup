@@ -57,3 +57,10 @@ sudo apt-get -qq -y install amdgpu-dkms
 (echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600) >/dev/null
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install rocm >/dev/null
+
+# Post-install
+sudo tee /etc/ld.so.conf.d/rocm.conf <<EOF
+/opt/rocm/lib
+/opt/rocm/lib64
+EOF
+sudo ldconfig
