@@ -48,11 +48,11 @@ sudo usermod -aG render "$LOGNAME" >/dev/null
 (echo 'EXTRA_GROUPS=video' | sudo tee -a /etc/adduser.conf) >/dev/null
 sudo usermod -aG video "$LOGNAME" >/dev/null
 sudo mkdir --parents --mode=0755 /etc/apt/keyrings
-wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg > /dev/null
+(wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg) > /dev/null
 CODE_NAME=$(lsb_release -cs)
 (echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/latest/ubuntu $CODE_NAME main" | sudo tee /etc/apt/sources.list.d/amdgpu.list) >/dev/null
 sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install amdgpu-dkms
+sudo apt-get -qq -y install amdgpu-dkms >/dev/null
 (echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/latest/ $CODE_NAME main" | sudo tee /etc/apt/sources.list.d/rocm.list) >/dev/null
 (echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600) >/dev/null
 sudo apt-get -qq update >/dev/null
