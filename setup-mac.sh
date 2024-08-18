@@ -64,7 +64,7 @@ if ! grep -q fish /etc/shells; then
     echo "Add $(which fish) to /etc/shells"
     (which fish | sudo tee -a /etc/shells) >/dev/null
 fi
-if [[ $SHELL != *fish* ]] then
+if [[ $SHELL != *fish* ]]; then
     echo "Change default shell to $(which fish)"
     chsh -s "$(which fish)"
 fi
