@@ -59,6 +59,7 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install rocm >/dev/null
 
 # Post-install
+echo "Post-install rocm."
 sudo tee /etc/ld.so.conf.d/rocm.conf <<EOF
 /opt/rocm/lib
 /opt/rocm/lib64
