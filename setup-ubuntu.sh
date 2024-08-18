@@ -63,7 +63,7 @@ GPU=$(lspci | grep VGA | cut -d ":" -f3)
 if [[ $GPU == *NVIDIA* ]]; then
     . "$SCRIPT_DIR/subset/ubuntu/setup-cuda.sh"
 elif [[ $GPU == *Advanced* ]]; then
-    . "$SCRIPT_DIR//subset/ubuntu/setup-rocm.sh"
+    . "$SCRIPT_DIR/subset/ubuntu/setup-rocm.sh"
 fi
 
 echo "Install firefox developer edition."
