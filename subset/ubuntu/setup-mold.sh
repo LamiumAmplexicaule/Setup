@@ -2,6 +2,7 @@
 set -eu
 
 SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
+# shellcheck source=utils.sh
 . "$SCRIPT_DIR/../../utils.sh"
 
 SUPPORTED_VERSIONS=("20.04" "22.04" "24.04")
