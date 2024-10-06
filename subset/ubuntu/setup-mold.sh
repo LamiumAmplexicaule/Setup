@@ -41,4 +41,4 @@ cd build
 git checkout -q -b "$MOLD_VERSION" >/dev/null
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ .. >/dev/null
 cmake --build . -j $(($(nproc) - 1)) >/dev/null
-sudo cmake --install .
+sudo cmake --build build --target install >/dev/null
