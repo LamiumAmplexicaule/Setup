@@ -54,8 +54,12 @@ $wingetPackages = @(
 
 if (Get-Command -Name winget -ErrorAction SilentlyContinue)
 {
-  foreach ($wingetPackage in $wingetPackages) {
-    Write-Host "Install: $wingetPackage"
-    winget install -e --id  $wingetPackage
+  $buildNumber = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").CurrentBuildNumber
+  if ($buildNumber -gt $targetVersion -and (Get-Command -Name sudo -ErrorAction SilentlyContinue)) {
+    sudo winget install $wingetPackages
+  }
+  else
+  {
+    winget install $wingetPackages
   }
 }
