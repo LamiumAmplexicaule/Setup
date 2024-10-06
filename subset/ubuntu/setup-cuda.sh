@@ -35,6 +35,7 @@ fi
 
 # Remove old
 result=0
+# shellcheck disable=SC2034
 output=$(dpkg -s "cuda" &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo apt-get -qq -y remove cuda >/dev/null

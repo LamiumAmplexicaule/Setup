@@ -35,6 +35,7 @@ fi
 
 # Remove old
 result=0
+# shellcheck disable=SC2034
 output=$(dpkg -s 'rocm-core' &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
     sudo apt autoremove rocm >/dev/null
