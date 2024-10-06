@@ -37,7 +37,7 @@ fi
 result=0
 output=$(dpkg -s 'rocm-core' &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
-    sudo apt autoremove rocm-core >/dev/null
+    sudo apt autoremove rocm >/dev/null
 fi
 
 # Install rocm
