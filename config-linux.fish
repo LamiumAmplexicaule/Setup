@@ -2,10 +2,11 @@ set -xg fish_greeting
 set -xg FZF_DEFAULT_COMMAND "fd --type file --color=always --follow --hidden --exclude .git"
 set -xg FZF_DEFAULT_OPTS "--ansi"
     
-alias rm='rm -i'
-alias mv='mv -i'
-alias cp='cp -i'
-alias la='ls -a'
+abbr --add rm 'rm -vi'
+abbr --add mv 'mv -vi'
+abbr --add cp 'cp -vi'
+abbr --add la 'ls -a'
+
 alias update='sudo apt update && sudo apt upgrade'
 
 if type xclip >/dev/null 2>&1
