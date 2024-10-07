@@ -58,8 +58,22 @@ $wingetPackages = @(
   "Valve.Steam"
 )
 
-if (Get-Command -Name winget -ErrorAction SilentlyContinue)
-{
+$usbDevices = Get-PnpDevice -Class USB
+:external foreach ($device in $usbDevices) {
+  switch -Regex ($device.Manufacturer) {
+    "Logicool|Logitech" {
+      $packageName = "Logitech.GHUB"
+    }
+    Default {
+      continue external
+    }
+  }
+  if (!$wingetPackages.Contains($packageName)) {
+    $wingetPackages += $packageName
+  }
+}
+
+if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
   $buildNumber = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").CurrentBuildNumber
   if ($buildNumber -gt $targetVersion -and (Get-Command -Name sudo -ErrorAction SilentlyContinue)) {
     sudo winget install $wingetPackages
