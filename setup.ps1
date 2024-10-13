@@ -74,8 +74,9 @@ $usbDevices = Get-PnpDevice -Class USB
 }
 
 if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
+  Set-Variable -Name WINDOWS11_24H2_BUILD_NUMBER -Value 26100 -Option Constant
   $buildNumber = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").CurrentBuildNumber
-  if ($buildNumber -gt $targetVersion -and (Get-Command -Name sudo -ErrorAction SilentlyContinue)) {
+  if ($buildNumber -ge $WINDOWS11_24H2_BUILD_NUMBER -and (Get-Command -Name sudo -ErrorAction SilentlyContinue)) {
     sudo winget install $wingetPackages
   }
   else
