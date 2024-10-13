@@ -1,4 +1,4 @@
-Write-Host "Remove unnecessary packages"
+Write-Output "Remove unnecessary packages"
 
 $unnecessaryPackages = @(
   "7EE7776C.LinkedInforWindows",
@@ -45,9 +45,11 @@ $unnecessaryPackages = @(
 )
 
 foreach ($unnecessaryPackage in $unnecessaryPackages) {
-  Write-Host "Remove: $unnecessaryPackage"
+  Write-Output "Remove: $unnecessaryPackage"
   Get-AppxPackage $unnecessaryPackage | Remove-AppxPackage
 }
+
+Write-Output "Install necessary packages"
 
 $wingetPackages = @(
   "AgileBits.1Password",
