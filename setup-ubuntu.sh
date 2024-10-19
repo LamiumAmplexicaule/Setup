@@ -15,9 +15,9 @@ ln -sf "$(which batcat)" ~/.local/bin/bat
 ln -sf "$(which fdfind)" ~/.local/bin/fd
 
 echo "Install clipboard utilities."
-if [[ $XDG_SESSION_TYPE == wayland ]]; then
+if [[ ${XDG_SESSION_TYPE-undef} == wayland ]]; then
     sudo apt-get -qq install wl-clipboard >/dev/null
-elif [[ $XDG_SESSION_TYPE == x11 ]]; then
+elif [[ ${XDG_SESSION_TYPE-undef} == x11 ]]; then
     sudo apt-get -qq install xclip >/dev/null
 fi
  
