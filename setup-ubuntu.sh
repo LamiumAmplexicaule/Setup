@@ -2,6 +2,8 @@
 set -eu
 
 SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
+# shellcheck source=utils.sh
+. "$SCRIPT_DIR/utils.sh"
 
 echo "Install common tools."
 sudo apt-get -qq update >/dev/null
@@ -40,6 +42,13 @@ if [[ ! $(command -v hyper) ]]; then
     wget -qO hyper.deb https://releases.hyper.is/download/deb
     sudo apt-get -qq -y install ./hyper.deb >/dev/null
     rm -f hyper.deb >/dev/null
+    OS_VERSION=$(lsb_release -rs)
+    NOBLE=24.04
+    if version_lt $OS_VERSION "$NOBLE"; then
+        sudo apt-get -qq -y install libasound2 >/dev/null
+    else
+        sudo apt-get -qq -y install libasound2t64 >/dev/null
+    fi
 fi
 if [[ $(command -v hyper) ]]; then
     cp -n .hyper.js ~/.hyper.js
