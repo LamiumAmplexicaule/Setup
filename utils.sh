@@ -12,3 +12,19 @@ is_supported_version() {
     done
     return 1
 }
+
+version_lte() {
+    printf "%s\n%s" "$1" "$2" | sort -C -V
+}
+
+version_gte() {
+    printf "%s\n%s" "$2" "$1" | sort -C -V
+}
+
+version_lt() {
+    ! version_lte "$2" "$1"
+}
+
+version_gt() {
+    ! version_gte "$2" "$1"
+}
