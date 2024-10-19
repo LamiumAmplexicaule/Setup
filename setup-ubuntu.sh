@@ -46,7 +46,7 @@ if [[ ! $(command -v hyper) ]]; then
     wget -qO hyper.deb https://releases.hyper.is/download/deb
     sudo apt-get -qq -y install ./hyper.deb >/dev/null
     rm -f hyper.deb >/dev/null
-    if version_lt $OS_VERSION "$NOBLE"; then
+    if version_lt "$OS_VERSION" "$NOBLE"; then
         sudo apt-get -qq -y install libasound2 >/dev/null
     else
         sudo apt-get -qq -y install libasound2t64 >/dev/null
@@ -120,13 +120,13 @@ fi
 
 echo "Install jetbrains toolbox."
 if [[ ! -f ~/.local/share/applications/jetbrains-toolbox.desktop ]]; then
-    if version_lte $OS_VERSION "$IMPISH"; then
+    if version_lte "$OS_VERSION" "$IMPISH"; then
         sudo apt-get -qq install fuse libfuse2 >/dev/null
         sudo modprobe fuse >/dev/null
         sudo groupadd fuse >/dev/null
         user="$(whoami)"
         sudo usermod -a -G fuse "$user" >/dev/null
-    elif version_lt $OS_VERSION "$NOBLE"; then
+    elif version_lt "$OS_VERSION" "$NOBLE"; then
         sudo add-apt-repository -y universe >/dev/null
         sudo apt-get -qq install libfuse2 >/dev/null
     else
