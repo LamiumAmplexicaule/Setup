@@ -5,6 +5,10 @@ SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
 # shellcheck source=utils.sh
 . "$SCRIPT_DIR/utils.sh"
 
+OS_VERSION=$(lsb_release -rs)
+IMPISH=21.10
+NOBLE=24.04
+
 echo "Install common tools."
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y upgrade >/dev/null
@@ -42,8 +46,6 @@ if [[ ! $(command -v hyper) ]]; then
     wget -qO hyper.deb https://releases.hyper.is/download/deb
     sudo apt-get -qq -y install ./hyper.deb >/dev/null
     rm -f hyper.deb >/dev/null
-    OS_VERSION=$(lsb_release -rs)
-    NOBLE=24.04
     if version_lt $OS_VERSION "$NOBLE"; then
         sudo apt-get -qq -y install libasound2 >/dev/null
     else
@@ -118,17 +120,18 @@ fi
 
 echo "Install jetbrains toolbox."
 if [[ ! -f ~/.local/share/applications/jetbrains-toolbox.desktop ]]; then
-    OS_VERSION=$(lsb_release -rs)
-    IMPISH=21.10
-    if [[ $(printf "%s\n%s" "$IMPISH" "$OS_VERSION" | sort -V | head -n 1) == "$IMPISH" ]]; then
+    if version_lte $OS_VERSION "$IMPISH"; then
         sudo apt-get -qq install fuse libfuse2 >/dev/null
         sudo modprobe fuse >/dev/null
         sudo groupadd fuse >/dev/null
         user="$(whoami)"
         sudo usermod -a -G fuse "$user" >/dev/null
-    else
+    elif version_lt $OS_VERSION "$NOBLE"; then
         sudo add-apt-repository -y universe >/dev/null
         sudo apt-get -qq install libfuse2 >/dev/null
+    else
+        sudo add-apt-repository -y universe >/dev/null
+        sudo apt-get -qq install libfuse2t64 >/dev/null
     fi
     wget -qO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
     mkdir -p jetbrains-toolbox && tar -xzf jetbrains-toolbox.tar.gz -C jetbrains-toolbox --strip-components 1
