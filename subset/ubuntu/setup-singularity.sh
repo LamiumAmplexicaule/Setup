@@ -15,9 +15,9 @@ sudo rm -rf /usr/local/go
 # Definitions
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install jq >/dev/null
-SINGULARITY_VERSION=$(curl -s https://api.github.com/repos/sylabs/singularity/releases/latest | jq .tag_name | grep -oE "([0-9])+\.([0-9])+\.([0-9])+")
+SINGULARITY_VERSION=$(curl -s https://api.github.com/repos/sylabs/singularity/releases/latest | jq -r .tag_name)
 GO_VERSION=1.22.6
-echo "Singularity version: ${SINGULARITY_VERSION}"
+echo "Singularity version: ${SINGULARITY_VERSION#v}"
 echo "Go version: ${GO_VERSION}"
 
 # Install dependencies
@@ -34,7 +34,7 @@ export PATH="/usr/local/go/bin:${PATH}"
 
 # Install singularity
 echo "Install singularity."
-wget -qO singularity-ce.tar.gz https://github.com/sylabs/singularity/releases/download/v"${SINGULARITY_VERSION}"/singularity-ce-"${SINGULARITY_VERSION}".tar.gz
+wget -qO singularity-ce.tar.gz https://github.com/sylabs/singularity/releases/download/"${SINGULARITY_VERSION}"/singularity-ce-"${SINGULARITY_VERSION#v}".tar.gz
 mkdir -p singularity-ce && tar -xzf singularity-ce.tar.gz -C singularity-ce --strip-components 1
 cd singularity-ce
 ./mconfig >/dev/null

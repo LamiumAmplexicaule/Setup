@@ -27,8 +27,8 @@ if ! is_supported_version "$OS_VERSION" "${SUPPORTED_VERSIONS[@]}"; then
     exit 1
 fi
 
-MOLD_VERSION=$(curl -s https://api.github.com/repos/rui314/mold/releases/latest | jq .tag_name | grep -oE "v([0-9])+\.([0-9])+\.([0-9])+")
-echo "Mold version: ${MOLD_VERSION}"
+MOLD_VERSION=$(curl -s https://api.github.com/repos/rui314/mold/releases/latest | jq -r .tag_name)
+echo "Mold version: ${MOLD_VERSION#v}"
 
 # Install mold
 echo "Install mold."
