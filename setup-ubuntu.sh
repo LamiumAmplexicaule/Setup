@@ -35,7 +35,7 @@ if [[ ! $(command -v fish) ]]; then
 fi
 if [[ $(command -v fish) ]]; then
     mkdir -p ~/.config/fish/ >/dev/null
-    cp -n config-linux.fish ~/.config/fish/config.fish >/dev/null
+    cp -n "$SCRIPT_DIR/config-linux.fish" ~/.config/fish/config.fish >/dev/null
     fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher" >/dev/null
     fish -c "fisher install jethrokuan/z" >/dev/null
     fish -c "fisher install PatrickF1/fzf.fish" >/dev/null
@@ -53,7 +53,7 @@ if [[ ! $(command -v hyper) ]]; then
     fi
 fi
 if [[ $(command -v hyper) ]]; then
-    cp -n .hyper.js ~/.hyper.js
+    cp -n "$SCRIPT_DIR/.hyper.js" ~/.hyper.js
     hyper_plugins=(
         "hyper-akari"
         "hyper-tab-icons-plus"
