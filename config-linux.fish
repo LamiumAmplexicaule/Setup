@@ -9,11 +9,11 @@ abbr --add la 'ls -a'
 
 alias update='sudo apt update && sudo apt upgrade'
 
-if type xclip >/dev/null 2>&1
+if type xclip &>/dev/null
     alias pbcopy='xclip -selection c'
     alias pbpaste='xclip -selection c -o'
 end
-if type wl-copy >/dev/null 2>&1
+if type wl-copy &>/dev/null
     alias pbcopy='wl-copy'
     alias pbpaste='wl-paste'
 end
