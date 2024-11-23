@@ -9,9 +9,11 @@ OS_VERSION=$(lsb_release -rs)
 IMPISH=21.10
 NOBLE=24.04
 
-echo "Install common tools."
+echo "Update packages."
 sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y upgrade >/dev/null
+
+echo "Install common tools."
 sudo apt-get -qq -y install git curl wget apt-transport-https gnupg lsb-release pciutils bzip2 >/dev/null
 
 echo "Install fzf, bat, fd."
