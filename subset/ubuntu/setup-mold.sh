@@ -17,8 +17,8 @@ fi
 
 # Install dependencies
 echo "Install dependencies."
-sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install wget >/dev/null
+run_as_root apt-get -qq update >/dev/null
+run_as_root apt-get -qq -y install wget >/dev/null
 
 # Check version
 OS_VERSION=$(sed -n 's/^VERSION_ID="\?\([^"]*\)"\?/\1/p' /etc/os-release)
@@ -42,4 +42,4 @@ cd build
 git checkout -q -b "$MOLD_VERSION" >/dev/null
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ .. >/dev/null
 cmake --build . -j $(($(nproc) - 1)) >/dev/null
-sudo cmake --build build --target install >/dev/null
+run_as_root cmake --build build --target install >/dev/null

@@ -24,8 +24,8 @@ fi
 
 # Install dependencies
 echo "Install dependencies."
-sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install wget lsb-release >/dev/null
+run_as_root apt-get -qq update >/dev/null
+run_as_root apt-get -qq -y install wget lsb-release >/dev/null
 
 # Check version
 OS_VERSION=$(sed -n 's/^VERSION_ID="\?\([^"]*\)"\?/\1/p' /etc/os-release)
@@ -39,8 +39,8 @@ result=0
 # shellcheck disable=SC2034
 output=$(dpkg -s "cuda" &>/dev/null) || result=$?
 if [[ $result == 0 ]]; then
-    sudo apt-get -qq -y remove cuda >/dev/null
-    sudo rm -rf /usr/local/cuda*
+    run_as_root apt-get -qq -y remove cuda >/dev/null
+    run_as_root rm -rf /usr/local/cuda*
 fi
 
 # Install cuda
@@ -59,6 +59,6 @@ case $OS_VERSION in
         ;;
 esac
 
-sudo dpkg -i cuda-keyring_all.deb >/dev/null
-sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install cuda
+run_as_root dpkg -i cuda-keyring_all.deb >/dev/null
+run_as_root apt-get -qq update >/dev/null
+run_as_root apt-get -qq -y install cuda

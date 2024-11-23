@@ -1,6 +1,17 @@
 #!/bin/bash
 set -eu
 
+run_as_root() {
+    if [ -z "$1" ]; then
+        return 1
+    fi
+    if [[ "${EUID:-0}" == 0 ]]; then
+        $@
+    else
+        sudo $@
+    fi
+}
+
 is_supported_version() {
     local OS_VERSION=$1
     shift

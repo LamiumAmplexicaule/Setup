@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eu
 
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
+# shellcheck source=utils.sh
+. "$SCRIPT_DIR/../../utils.sh"
+
 # Check platform
 OS=$(uname -s)
 ARCH=$(uname -m)
@@ -11,8 +15,8 @@ fi
 
 # Install dependencies
 echo "Install dependencies."
-sudo apt-get -qq update >/dev/null
-sudo apt-get -qq -y install python3-pip >/dev/null
+run_as_root apt-get -qq update >/dev/null
+run_as_root apt-get -qq -y install python3-pip >/dev/null
 pip3 install -U pip
 
 GPU=$(lspci | grep VGA | cut -d ":" -f3)
