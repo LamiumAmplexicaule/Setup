@@ -6,9 +6,9 @@ run_as_root() {
         return 1
     fi
     if [[ "${EUID:-0}" == 0 ]]; then
-        $@
+        "$@"
     else
-        sudo $@
+        sudo "$@"
     fi
 }
 
