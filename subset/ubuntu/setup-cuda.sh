@@ -25,7 +25,7 @@ fi
 # Install dependencies
 echo "Install dependencies."
 run_as_root apt-get -qq update >/dev/null
-run_as_root apt-get -qq -y install wget lsb-release >/dev/null
+run_as_root apt-get -qq -y install wget >/dev/null
 
 # Check version
 OS_VERSION=$(sed -n 's/^VERSION_ID="\?\([^"]*\)"\?/\1/p' /etc/os-release)
