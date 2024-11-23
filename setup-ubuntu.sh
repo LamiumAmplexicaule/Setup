@@ -5,7 +5,7 @@ SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE:-$0}")")
 # shellcheck source=utils.sh
 . "$SCRIPT_DIR/utils.sh"
 
-OS_VERSION=$(lsb_release -rs)
+OS_VERSION=$(sed -n 's/^VERSION_ID="\?\([^"]*\)"\?/\1/p' /etc/os-release)
 IMPISH=21.10
 NOBLE=24.04
 

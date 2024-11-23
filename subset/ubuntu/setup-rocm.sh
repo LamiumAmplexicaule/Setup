@@ -28,7 +28,7 @@ sudo apt-get -qq update >/dev/null
 sudo apt-get -qq -y install wget gnupg2 >/dev/null
 
 # Check version
-OS_VERSION=$(lsb_release -rs)
+OS_VERSION=$(sed -n 's/^VERSION_ID="\?\([^"]*\)"\?/\1/p' /etc/os-release)
 if ! is_supported_version "$OS_VERSION" "${SUPPORTED_VERSIONS[@]}"; then
     echo "Your os version is not supported."
     exit 1
