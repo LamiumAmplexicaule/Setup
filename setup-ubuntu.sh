@@ -31,7 +31,7 @@ fi
  
 echo "Install fish."
 if [[ ! $(command -v fish) ]]; then
-    run_as_root add-apt-repository -y ppa:fish-shell/release-3 >/dev/null
+    run_as_root add-apt-repository -y ppa:fish-shell/release-4 >/dev/null
     run_as_root apt-get -qq update >/dev/null
     run_as_root apt-get -qq -y install fish >/dev/null
 fi
