@@ -62,8 +62,8 @@ $wingetPackages = @(
 
 $usbDevices = Get-PnpDevice -Class USB
 :external foreach ($device in $usbDevices) {
-  switch -Regex ($device.Manufacturer) {
-    "Logicool|Logitech" {
+  switch -Regex ($device.DeviceId) {
+    "VID_046D" {
       $packageName = "Logitech.GHUB"
     }
     Default {
