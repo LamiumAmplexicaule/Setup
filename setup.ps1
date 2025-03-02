@@ -51,7 +51,7 @@ foreach ($unnecessaryPackage in $unnecessaryPackages) {
 
 Write-Output "Install necessary packages"
 
-$wingetPackages = @(
+$wingetPackagesArray = @(
   "AgileBits.1Password",
   "Discord.Discord",
   "ElectronicArts.EADesktop",
@@ -59,19 +59,13 @@ $wingetPackages = @(
   "RiotGames.Valorant.AP",
   "Valve.Steam"
 )
+$wingetPackages = [System.Collections.Generic.HashSet[string]]::new()
+$wingetPackagesArray | ForEach-Object { $wingetPackages.Add($_) | Out-Null }
 
 $usbDevices = Get-PnpDevice -Class USB
-:external foreach ($device in $usbDevices) {
-  switch -Regex ($device.DeviceId) {
-    "VID_046D" {
-      $packageName = "Logitech.GHUB"
-    }
-    Default {
-      continue external
-    }
-  }
-  if (!$wingetPackages.Contains($packageName)) {
-    $wingetPackages += $packageName
+foreach ($device in $usbDevices) {
+  if ($device.DeviceId -match "VID_046D") {
+    $wingetPackages.Add("Logitech.GHUB") | Out-Null
   }
 }
 
