@@ -31,7 +31,8 @@ if [[ $GPU == *NVIDIA* ]]; then
         11.7 ) pip install torch==2.0.1+cu117 torchvision==0.15.2+cu117 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu117 ;;
         11.8|12.0 ) pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 ;;
         12.[123] ) pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 ;;
-        12.[456] ) pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124 ;;
+        12.[45] ) pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124 ;;
+        12.[678] ) pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126 ;;
         * ) pip3 install torch torchvision torchaudio ;;
     esac
 elif [[ $GPU == *Advanced* ]]; then
