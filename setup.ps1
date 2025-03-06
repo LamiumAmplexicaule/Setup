@@ -9,7 +9,6 @@ $unnecessaryPackages = @(
   "Microsoft.BingNews",
   "Microsoft.BingSearch",
   "Microsoft.BingWeather",
-  "Microsoft.GamingApp",
   "Microsoft.GetHelp",
   "Microsoft.Getstarted",
   "Microsoft.Microsoft3DViewer",
